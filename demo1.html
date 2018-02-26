@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片库</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="main">
+        <div id="content">
+            <ul>
+                <li>
+                    <a href="pics/1.jpg" title="picture 01">picture01</a>
+                </li>
+                <li>
+                    <a href="pics/2.png" title="picture 02">picture02</a>
+                </li>
+                <li>
+                    <a href="pics/3.jpg" title="picture 03">picture03</a>
+                </li>
+                <li>
+                    <a href="pics/4.jpg" title="picture 04">picture04</a>
+                </li>
+                <li>
+                    <a href="pics/1.jpg" title="welcome to the show">RESUME</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function addLoadEvent(func){
+            var oldonload = window.onload ;
+            if (typeof window.onload != 'function'){
+                window.onload = func;
+            } else {
+                window.onload = function(){
+                    oldonload();
+                    func();
+                }
+            }
+        }
+
+        function placeHolder(){
+            var showPlace = document.createElement("div");
+            var defaultPic = document.createElement("img");
+            var defaultDes = document.createElement("p");
+            var text = document.createTextNode("welcome to the show");
+            var main = document.getElementById("main");
+            showPlace.setAttribute("id","placeholder");
+            defaultPic.setAttribute("src","pics/1.jpg");
+            defaultPic.setAttribute("id","defaultPic");
+            defaultDes.setAttribute("id","defaultDes");
+            defaultDes.appendChild(text);
+            var div = main.appendChild(showPlace);
+            div.appendChild(defaultDes);
+            defaultDes.parentNode.insertBefore(defaultPic,defaultDes);
+            var content = document.getElementById("content");
+            var links = content.getElementsByTagName("a");
+            for (var i=0;i<links.length;i++) {
+                links[i].onclick = function(){
+                    return showPic(this);
+                }
+            };
+        }
+
+        function showPic(value){
+            var source = value.getAttribute("href");
+            var text = value.getAttribute("title");
+            var defaultPic = document.getElementById("defaultPic");
+            var defaultDes = document.getElementById("defaultDes");
+            defaultPic.setAttribute("src",source);
+            defaultDes.firstChild.nodeValue = text ;
+            return false;
+        }
+
+        addLoadEvent(placeHolder);
+    </script>
+</body>
+</html>
