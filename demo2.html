@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>焦点轮播</title>
+    <link rel="stylesheet" type="text/css" href="css/demo2.css">
+</head>
+<body>
+    <div id="main">
+        <h1>welcome to the show</h1>
+        <ul id="linkList">
+            <li>
+                <a href="pics/1.jpg">Ada</a>
+            </li>
+            <li>
+                <a href="pics/2.jpg">Bob</a>
+            </li>
+            <li>
+                <a href="pics/3.jpg">Coco</a>
+            </li>
+            <li>
+                <a href="pics/4.jpg">Devil</a>
+            </li>
+        </ul>
+    </div>
+    <div id="placeHolder">
+        <img src="pics/all.jpg" id="showPic">
+    </div>
+    <script>
+
+        window.onload = function(){
+            slide();
+            moveElement();
+        };
+
+        function slide(){
+            var showPic = document.getElementById("showPic");
+            showPic.style.position = "absolute";
+            showPic.style.left = "0px";
+            showPic.style.top = "0px";
+            var link = document.getElementById("linkList");
+            var list = link.getElementsByTagName("a");
+            list[0].onmouseover = function(){
+                moveElement("showPic",0,0,10);
+            };
+            list[1].onmouseover = function(){
+                moveElement("showPic",-100,0,10);
+            };
+            list[2].onmouseover = function(){
+                moveElement("showPic",-200,0,10);
+            };
+            list[3].onmouseover = function(){
+                moveElement("showPic",-300,0,10);
+            };
+        }
+        
+        function moveElement(element,x_pos,y_pos,interval){
+            var cue = document.getElementById(element);
+            if (cue.movement){
+                clearTimeout(cue.movement);
+            };
+            var x = parseInt(cue.style.left);
+            var y = parseInt(cue.style.top);
+            var dist = 0 ;
+            if (x == x_pos && y == y_pos) return true ;
+            if (x < x_pos){
+                dist = Math.ceil((x_pos - x)/10);
+                x = x + dist ;
+            };
+            if (x > x_pos){
+                dist = Math.ceil((x - x_pos)/10);
+                x = x - dist ;
+            };
+            if (y < y_pos){
+                dist = Math.ceil((y_pos - y )/10);
+                y = y + dist ;
+            };
+            if (y > y_pos){
+                dist = Math.ceil((y - y_pos)/10);
+                y = y - dist ;
+            };
+            cue.style.left = x + "px" ;
+            cue.style.top = y + "px" ;
+            cue.movement = setTimeout (function() {
+                moveElement(element,x_pos,y_pos,interval);
+                }, interval);
+        }
+
+    </script>
+</body>
+</html>
