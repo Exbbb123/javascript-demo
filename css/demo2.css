@@ -1,0 +1,12 @@
+#placeHolder {
+    position: relative;
+    width : 100px ;
+    height: 100px ;
+    overflow: hidden;
+}
+
+#showPic {
+    position: absolute;
+    left: 0 ;
+    top: 0 ;
+}
